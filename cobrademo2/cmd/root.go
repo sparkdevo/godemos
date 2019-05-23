@@ -27,24 +27,17 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "cobrademo",
-	Short: "sparkdev's cobra demo",
-	Long: "the demo show how to use cobra package",
-	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Inside rootCmd PersistentPreRun with args: %v\n", args)
-	},
-	PreRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Inside rootCmd PreRun with args: %v\n", args)
-	},
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("cobra demo program, with args: %v\n", args)
-	},
-	PostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Inside rootCmd PostRun with args: %v\n", args)
-	},
-	PersistentPostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Inside rootCmd PersistentPostRun with args: %v\n", args)
-	},
+	Use:   "cobrademo2",
+	Short: "A brief description of your application",
+	Long: `A longer description that spans multiple lines and likely contains
+examples and usage of using your application. For example:
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.`,
+	// Uncomment the following line if your bare application
+	// has an action associated with it:
+	//	Run: func(cmd *cobra.Command, args []string) { },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -56,21 +49,17 @@ func Execute() {
 	}
 }
 
-var Verbose bool
 func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobrademo.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobrademo2.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-
-	//rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
-	rootCmd.Flags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -86,9 +75,9 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".cobrademo" (without extension).
+		// Search config in home directory with name ".cobrademo2" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".cobrademo")
+		viper.SetConfigName(".cobrademo2")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
