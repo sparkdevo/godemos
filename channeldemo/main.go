@@ -22,7 +22,8 @@ func init() {
 // main是所有Go程序的入口
 func main() {
     //demo1()
-    demo2()
+    //demo2()
+	demo3()
 }
 
 // 这个示例程序展示如何用无缓冲的通道来模拟
@@ -128,5 +129,23 @@ func worker(tasks chan string, worker int){
 
 		// 显示我们完成了工作
 		fmt.Printf("Worker: %d: Completed %s\n", worker, task)
+	}
+}
+
+func demo3() {
+	ch := make(chan int)
+	// 首先实现并执行一个匿名的超时等待函数
+	timeout := make(chan bool, 1)
+	go func() {
+		time.Sleep(1e9) // 等待 1 秒
+		timeout <- true
+	}()
+	// 然后把 timeout 这个 channel 利用起来
+	select {
+	case <-ch:
+		// 从 ch 中读取到数据
+	case <- timeout:
+		// 一直没有从 ch 中读取到数据，但从 timeout 中读取到了数据
+		fmt.Println("Timeout occurred.")
 	}
 }
